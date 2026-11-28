@@ -1,0 +1,34 @@
+{
+  "name": "ExampleModel-v1",
+  "org": "Example Lab",
+  "url": "https://arxiv.org/abs/2611.29184",
+  "evidence_url": "https://huggingface.co/datasets/your-org/phycove-predictions",
+  "group": "open",
+  "date": "2026-11-27",
+  "notes": "Evaluated on all 533 cases using the official PhyCoVE evaluation scripts.",
+  "overall": {
+    "cf": 0.165,
+    "ea": 2.45,
+    "pc": 4.40,
+    "joint": 14.2,
+    "miou": 0.352,
+    "psnr": 27.10,
+    "ssim": 0.875,
+    "lpips": 0.098,
+    "fvd": 94,
+    "hpwr": null
+  },
+  "breakdown": {
+    "rem": [0.380, 3.20, null],
+    "chg": [0.052, 1.95, null],
+    "ins": [0.160, 2.40, null],
+    "pat": [0.145, 0.185, 0.170, 0.190, 0.120]
+  },
+  "rigid": {
+    "cf": 0.210,
+    "miou": 0.340,
+    "psnr": 26.80,
+    "ssim": 0.860,
+    "lpips": 0.115
+  }
+}

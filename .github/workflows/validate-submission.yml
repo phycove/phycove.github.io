@@ -1,0 +1,109 @@
+name: Validate Leaderboard Submission
+
+on:
+  issues:
+    types: [opened, edited]
+  pull_request:
+    paths:
+      - "submissions/*.json"
+      - "assets/data/leaderboard.json"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  validate-issue:
+    if: >
+      github.event_name == 'issues' &&
+      (contains(github.event.issue.labels.*.name, 'leaderboard-submission') ||
+       startsWith(github.event.issue.title, '[Leaderboard]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extract and validate submission JSON
+        id: check
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib
+          pathlib.Path("/tmp/issue_body.md").write_text(os.environ.get("ISSUE_BODY", ""), encoding="utf-8")
+          PY
+          set +e
+          OUTPUT=$(python3 scripts/leaderboard_tool.py extract-issue \
+            --body-file /tmp/issue_body.md \
+            --out /tmp/submission.json \
+            --summary-out /tmp/summary.md 2>&1)
+          STATUS=$?
+          set -e
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          if [ "$STATUS" -ne 0 ]; then
+            printf '%s\n' "$OUTPUT" > /tmp/errors.txt
+          fi
+
+      - name: Comment validation result on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const ok = "${{ steps.check.outputs.status }}" === "0";
+            let body;
+            if (ok) {
+              body = fs.readFileSync("/tmp/summary.md", "utf8");
+            } else {
+              const err = fs.readFileSync("/tmp/errors.txt", "utf8").trim();
+              body = [
+                "### Submission Validation Failed",
+                "",
+                "Please edit this issue to fix the JSON block below:",
+                "",
+                "```text",
+                err,
+                "```",
+                "",
+                "See `submissions/example_submission.json` or use the **Submit Results** form on https://phycove.github.io/#leaderboard."
+              ].join("\n");
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail job if invalid
+        if: steps.check.outputs.status != '0'
+        run: exit 1
+
+  validate-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate all submission JSON files
+        run: |
+          shopt -s nullglob
+          files=(submissions/*.json)
+          if [ "${#files[@]}" -gt 0 ]; then
+            python3 scripts/leaderboard_tool.py validate "${files[@]}"
+          fi
+          python3 - <<'PY'
+          import json, pathlib
+          lb = json.loads(pathlib.Path("assets/data/leaderboard.json").read_text(encoding="utf-8"))
+          assert isinstance(lb.get("overall"), list) and len(lb["overall"]) > 0
+          print(f"leaderboard.json valid ({len(lb['overall'])} overall models)")
+          PY

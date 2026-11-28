@@ -1,0 +1,107 @@
+name: Publish Approved Leaderboard Submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+
+jobs:
+  publish:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify maintainer permission
+        id: auth
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sender = context.payload.sender.login;
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: sender,
+            });
+            const allowed = ["admin", "maintain", "write"].includes(data.permission);
+            if (!allowed) {
+              core.setFailed(`User @${sender} does not have maintainer permission (${data.permission}).`);
+            }
+            const labels = (context.payload.issue.labels || []).map((l) => l.name);
+            core.setOutput("verified", labels.includes("verified") ? "true" : "false");
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Extract and merge submission
+        id: merge
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          VERIFIED_FLAG: ${{ steps.auth.outputs.verified }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib
+          pathlib.Path("/tmp/issue_body.md").write_text(os.environ.get("ISSUE_BODY", ""), encoding="utf-8")
+          PY
+          SLUG=$(python3 scripts/leaderboard_tool.py extract-issue \
+            --body-file /tmp/issue_body.md \
+            --out /tmp/submission.json)
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+          python3 scripts/leaderboard_tool.py merge \
+            --submission /tmp/submission.json \
+            --leaderboard assets/data/leaderboard.json \
+            --save-submission-dir submissions \
+            --verified "$VERIFIED_FLAG"
+
+      - name: Commit and push updated leaderboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add submissions assets/data/leaderboard.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "leaderboard: publish ${{ steps.merge.outputs.slug }} (#${{ github.event.issue.number }})"
+          git push origin main
+
+      - name: Trigger GitHub Pages rebuild
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            await github.rest.repos.requestPagesBuild({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+      - name: Comment and close issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const slug = "${{ steps.merge.outputs.slug }}";
+            const verified = "${{ steps.auth.outputs.verified }}" === "true";
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                `Published **\`${slug}\`** to \`assets/data/leaderboard.json\` (${verified ? "Verified" : "Community"} entry).`,
+                "",
+                "GitHub Pages will refresh https://phycove.github.io/#leaderboard automatically in ~30 seconds.",
+              ].join("\n"),
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed",
+            });

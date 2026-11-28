@@ -1,0 +1,1234 @@
+[
+    {
+        "id":  "bathtub_no_float",
+        "split":  "sim",
+        "category":  "rigid-fluid",
+        "category_label":  "Rigid–Fluid",
+        "edit_type":  "Remove",
+        "title":  "Bathtub Float",
+        "prompt_en":  "**Remove** the purple float from the bathtub.",
+        "frame":  1,
+        "highlight":  true,
+        "takeaway":  "In the counterfactual target, the toy car drops straight into the water once the float is removed. Most models either keep the float or leave the car floating in place.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__toy_car_float_bathtub__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__toy_car_float_bathtub__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__toy_car_float_bathtub__edit_no_float.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__toy_car_float_bathtub__edit_no_float.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.73,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.63,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.38,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.28,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.02,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.31,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.49,
+                          "video":  "assets/videos/comparisons/bathtub_no_float__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/bathtub_no_float__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "wine_fast_pour",
+        "split":  "sim",
+        "category":  "rigid-fluid",
+        "category_label":  "Rigid–Fluid",
+        "edit_type":  "Change",
+        "title":  "Wine Pour (3× Flow)",
+        "prompt_en":  "**Increase** the wine flow rate to 3× (from 60 to 180 mL/s).",
+        "frame":  1,
+        "highlight":  true,
+        "takeaway":  "In the target video, the heavier pour fills the glass far faster. Several models alter the liquid\u0027s color or brightness instead of its volumetric flow.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wine_pour__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wine_pour__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wine_pour__edit_high_flow_rate.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wine_pour__edit_high_flow_rate.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  -0.18,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.63,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.38,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.7,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.04,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.04,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/wine_fast_pour__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/wine_fast_pour__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "honey_timed_remove",
+        "split":  "sim",
+        "category":  "rigid-fluid",
+        "category_label":  "Rigid–Fluid",
+        "edit_type":  "Remove",
+        "title":  "Honey on Toast (Frame 51)",
+        "prompt_en":  "**Remove** the honey on the spoon at frame 51.",
+        "frame":  51,
+        "highlight":  false,
+        "takeaway":  "A later-frame fluid removal: the honey must keep pouring until frame 51, then vanish. Several models either remove it prematurely or leave the stream intact.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__honey_spoon_toast__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__honey_spoon_toast__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__honey_spoon_toast__edit_remove_honey_at_frame_51.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__honey_spoon_toast__edit_remove_honey_at_frame_51.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.02,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.78,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.88,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.02,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.78,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.75,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  0.05,
+                          "video":  "assets/videos/comparisons/honey_timed_remove__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/honey_timed_remove__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "clock_zero_gravity",
+        "split":  "sim",
+        "category":  "rigid-rigid",
+        "category_label":  "Rigid–Rigid",
+        "edit_type":  "Change",
+        "title":  "Wall Clock Zero-G (Frame 24)",
+        "prompt_en":  "**Set** the scene\u0027s gravity to zero at frame 24.",
+        "frame":  24,
+        "highlight":  true,
+        "takeaway":  "After impacting the wooden crate, turning off gravity at frame 24 lets the clock rebound and drift upward. Most models keep pulling the clock down to the floor.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wall_clock_drop__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wall_clock_drop__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wall_clock_drop__edit_gravity_off_after_impact.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wall_clock_drop__edit_gravity_off_after_impact.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  -0.11,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.35,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.07,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.13,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  -0.25,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.08,
+                          "video":  "assets/videos/comparisons/clock_zero_gravity__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/clock_zero_gravity__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "domino_timed_remove",
+        "split":  "sim",
+        "category":  "rigid-rigid",
+        "category_label":  "Rigid–Rigid",
+        "edit_type":  "Remove",
+        "title":  "Domino Chain (Frame 13)",
+        "prompt_en":  "**Remove** the first domino at frame 13.",
+        "frame":  13,
+        "highlight":  true,
+        "takeaway":  "Because removal occurs at frame 13 (after contact), the cascade must continue without the first domino. Premature removal stops the chain; failed removal leaves the tile in place.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__domino_chain__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__domino_chain__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__domino_chain__edit_remove_D01_after_contact.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__domino_chain__edit_remove_D01_after_contact.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.0,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.0,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.06,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.0,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.86,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  1.0,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/domino_timed_remove__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/domino_timed_remove__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "soccer_insert_ball",
+        "split":  "sim",
+        "category":  "rigid-rigid",
+        "category_label":  "Rigid–Rigid",
+        "edit_type":  "Insert",
+        "title":  "Soccer Ball Midpoint Insert",
+        "prompt_en":  "**Insert** a stationary soccer ball at the midpoint between the two balls.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "Inserting a third ball intercepts both incoming balls and transfers momentum. Nearly all models struggle to place the ball accurately and simulate the three-body collision.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__soccer_ball_collision__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__soccer_ball_collision__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__soccer_ball_collision__edit_add_midpoint_ball.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__soccer_ball_collision__edit_add_midpoint_ball.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  -0.01,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.07,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.02,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  -0.22,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/soccer_insert_ball__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/soccer_insert_ball__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "phone_insert_pillow",
+        "split":  "sim",
+        "category":  "rigid-elastic",
+        "category_label":  "Rigid–Elastic",
+        "edit_type":  "Insert",
+        "title":  "Phone Drop + Pillow",
+        "prompt_en":  "**Insert** a blue-grey pillow on the sofa cushion beneath the falling phone.",
+        "frame":  1,
+        "highlight":  true,
+        "takeaway":  "The falling phone must indent and settle onto the inserted pillow rather than hitting the bare cushion. Most models either omit the pillow or pass the phone straight through it.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__phone_sofa_drop__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__phone_sofa_drop__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__phone_sofa_drop__edit_added_pillow.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__phone_sofa_drop__edit_added_pillow.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.04,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.25,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.03,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.09,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.18,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.03,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  0.07,
+                          "video":  "assets/videos/comparisons/phone_insert_pillow__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/phone_insert_pillow__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "hammock_soft",
+        "split":  "sim",
+        "category":  "rigid-elastic",
+        "category_label":  "Rigid–Elastic",
+        "edit_type":  "Change",
+        "title":  "Beach Ball on Soft Hammock",
+        "prompt_en":  "**Reduce** the hammock\u0027s stiffness (Young\u0027s modulus) to 0.1×.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "A 10× softer hammock sags deeply under the beach ball\u0027s impact instead of bouncing it high. Models rarely adjust the elastic deformation amplitude.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__beach_ball_hammock_mpm__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__beach_ball_hammock_mpm__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__beach_ball_hammock_mpm__edit_hammock_young_1500pa.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__beach_ball_hammock_mpm__edit_hammock_young_1500pa.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.09,
+                          "video":  "assets/videos/comparisons/hammock_soft__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.09,
+                          "video":  "assets/videos/comparisons/hammock_soft__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.05,
+                          "video":  "assets/videos/comparisons/hammock_soft__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.04,
+                          "video":  "assets/videos/comparisons/hammock_soft__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.03,
+                          "video":  "assets/videos/comparisons/hammock_soft__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.13,
+                          "video":  "assets/videos/comparisons/hammock_soft__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.23,
+                          "video":  "assets/videos/comparisons/hammock_soft__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/hammock_soft__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "wind_flag_timed",
+        "split":  "sim",
+        "category":  "elastic-fluid",
+        "category_label":  "Elastic–Fluid",
+        "edit_type":  "Change",
+        "title":  "Flag in Wind (Frame 49)",
+        "prompt_en":  "**Reduce** the wind speed to 0.25× at frame 49.",
+        "frame":  49,
+        "highlight":  true,
+        "takeaway":  "Once the wind drops at frame 49, the taut cloth loses lift and drapes down along the pole. Only MiniMax H3 captures the post-edit slackening; most models keep flapping steadily.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wind_flag__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wind_flag__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__wind_flag__edit_wind_drop_at_2s.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__wind_flag__edit_wind_drop_at_2s.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  -0.02,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.59,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  -0.02,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.01,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.01,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/wind_flag_timed__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/wind_flag_timed__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "duck_remove_water",
+        "split":  "sim",
+        "category":  "elastic-fluid",
+        "category_label":  "Elastic–Fluid",
+        "edit_type":  "Remove",
+        "title":  "Rubber Duck (No Water)",
+        "prompt_en":  "**Remove** the water from the pool.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "Without buoyancy, the deformable duck falls to the empty pool floor and bounces elastically. Most models fail to remove the pool water or leave the duck hovering.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__elastic_fluid_duck__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__elastic_fluid_duck__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__elastic_fluid_duck__edit_delete_water_contact_fixed.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__elastic_fluid_duck__edit_delete_water_contact_fixed.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.28,
+                          "video":  "assets/videos/comparisons/duck_remove_water__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  -0.09,
+                          "video":  "assets/videos/comparisons/duck_remove_water__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  -0.04,
+                          "video":  "assets/videos/comparisons/duck_remove_water__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.05,
+                          "video":  "assets/videos/comparisons/duck_remove_water__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.01,
+                          "video":  "assets/videos/comparisons/duck_remove_water__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.06,
+                          "video":  "assets/videos/comparisons/duck_remove_water__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/duck_remove_water__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/duck_remove_water__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "sink_duck_soft",
+        "split":  "sim",
+        "category":  "elastic-fluid",
+        "category_label":  "Elastic–Fluid",
+        "edit_type":  "Change",
+        "title":  "Duck under Sink Stream",
+        "prompt_en":  "**Reduce** the yellow rubber duck\u0027s core stiffness to 0.1×.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "A softer duck compresses and sags noticeably under the faucet stream. Models mostly retain the rigid source pose or recolor the duck.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__bathroom_sink_duck_neospace__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__bathroom_sink_duck_neospace__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__bathroom_sink_duck_neospace__edit_soft_core_duck.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__bathroom_sink_duck_neospace__edit_soft_core_duck.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  -0.05,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.06,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.0,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.22,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.02,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.01,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.16,
+                          "video":  "assets/videos/comparisons/sink_duck_soft__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/sink_duck_soft__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "tshirt_remove_seat",
+        "split":  "sim",
+        "category":  "elastic-elastic",
+        "category_label":  "Elastic–Elastic",
+        "edit_type":  "Remove",
+        "title":  "Cotton T-Shirt (No Cushion)",
+        "prompt_en":  "**Remove** the right seat cushion from the sofa.",
+        "frame":  1,
+        "highlight":  true,
+        "takeaway":  "Removing the soft cushion drops the falling T-shirt deeper into the sofa frame with different folds. Several models hallucinate an invisible surface where the cushion used to be.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__cotton_tshirt_sofa__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__cotton_tshirt_sofa__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__cotton_tshirt_sofa__edit_remove_seat.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__cotton_tshirt_sofa__edit_remove_seat.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  -0.12,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.47,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  -0.01,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.0,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -1.0,
+                          "video":  "assets/videos/comparisons/tshirt_remove_seat__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/tshirt_remove_seat__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "real_mug_add_water",
+        "split":  "real",
+        "category":  "rigid-fluid",
+        "category_label":  "Real · Rigid–Fluid",
+        "edit_type":  "Insert",
+        "title":  "Ball in Mug (+ Water)",
+        "prompt_en":  "**Insert** water into the glass mug so the falling orange ball floats.",
+        "frame":  1,
+        "highlight":  true,
+        "takeaway":  "Adding water makes the buoyant orange ball rise to the surface. Models frequently add liquid appearance while leaving the ball pinned at the bottom.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__orange_ball_cup_water__source.mp4",
+                          "poster":  "assets/images/posters/showcase/real__orange_ball_cup_water__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__orange_ball_cup_water__edit_add_water.mp4",
+                          "poster":  "assets/images/posters/showcase/real__orange_ball_cup_water__edit_add_water.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.08,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.4,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  -0.02,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.6,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.52,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  -0.11,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.14,
+                          "video":  "assets/videos/comparisons/real_mug_add_water__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_mug_add_water__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "real_sponge_remove",
+        "split":  "real",
+        "category":  "rigid-elastic",
+        "category_label":  "Real · Rigid–Elastic",
+        "edit_type":  "Remove",
+        "title":  "Ball on Ramp (No Sponge)",
+        "prompt_en":  "**Remove** the yellow-and-blue sponge standing against the right cabinet wall.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "Without the energy-absorbing sponge, the orange ball strikes the bare wall harder and rebounds much farther back up the ramp.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__orange_ball_ramp_sponge__source.mp4",
+                          "poster":  "assets/images/posters/showcase/real__orange_ball_ramp_sponge__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__orange_ball_ramp_sponge__edit_remove_sponge.mp4",
+                          "poster":  "assets/images/posters/showcase/real__orange_ball_ramp_sponge__edit_remove_sponge.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.21,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.47,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.16,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.27,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.05,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.21,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  1.0,
+                          "video":  "assets/videos/comparisons/real_sponge_remove__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_sponge_remove__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "real_plush_paddle",
+        "split":  "real",
+        "category":  "elastic-elastic",
+        "category_label":  "Real · Elastic–Elastic",
+        "edit_type":  "Insert",
+        "title":  "Plush Drop (+ Paddle)",
+        "prompt_en":  "**Insert** a table-tennis paddle on top of the large plush toy.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "Placing a rigid paddle on top of the soft plush changes the bounce trajectory of the falling smaller plush toy.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__capybara_plush_drop__source.mp4",
+                          "poster":  "assets/images/posters/showcase/real__capybara_plush_drop__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/real__capybara_plush_drop__edit_add_paddle.mp4",
+                          "poster":  "assets/images/posters/showcase/real__capybara_plush_drop__edit_add_paddle.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.33,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.36,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  -0.09,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.22,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  -0.43,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  -0.11,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  -0.08,
+                          "video":  "assets/videos/comparisons/real_plush_paddle__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/real_plush_paddle__omniweaving.jpg"
+                      }
+                  ]
+    },
+    {
+        "id":  "slippers_tray",
+        "split":  "sim",
+        "category":  "elastic-elastic",
+        "category_label":  "Elastic–Elastic",
+        "edit_type":  "Insert",
+        "title":  "EVA Slippers + Shoe Tray",
+        "prompt_en":  "**Insert** a wooden shoe tray on the floor beside the resting slipper.",
+        "frame":  1,
+        "highlight":  false,
+        "takeaway":  "The falling elastic slipper clips the raised tray rim and deflects away from the resting slipper. Top commercial models insert the tray but only partially capture the contact deflection.",
+        "items":  [
+                      {
+                          "label":  "Source",
+                          "role":  "source",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__entryway_eva_slippers__source.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__entryway_eva_slippers__source.jpg"
+                      },
+                      {
+                          "label":  "Target (GT)",
+                          "role":  "target",
+                          "cf":  null,
+                          "video":  "assets/videos/showcase/sim__entryway_eva_slippers__edit_add_shoe_tray.mp4",
+                          "poster":  "assets/images/posters/showcase/sim__entryway_eva_slippers__edit_add_shoe_tray.jpg"
+                      },
+                      {
+                          "label":  "Seedance 2.5",
+                          "role":  "model",
+                          "cf":  0.34,
+                          "video":  "assets/videos/comparisons/slippers_tray__seedance25.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__seedance25.jpg"
+                      },
+                      {
+                          "label":  "MiniMax H3",
+                          "role":  "model",
+                          "cf":  0.33,
+                          "video":  "assets/videos/comparisons/slippers_tray__minimax_h3.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__minimax_h3.jpg"
+                      },
+                      {
+                          "label":  "Wan 3.0",
+                          "role":  "model",
+                          "cf":  0.08,
+                          "video":  "assets/videos/comparisons/slippers_tray__wan3_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__wan3_0_video.jpg"
+                      },
+                      {
+                          "label":  "Kling 4.0",
+                          "role":  "model",
+                          "cf":  0.15,
+                          "video":  "assets/videos/comparisons/slippers_tray__kling4_0_video.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__kling4_0_video.jpg"
+                      },
+                      {
+                          "label":  "JoyAI",
+                          "role":  "model",
+                          "cf":  0.1,
+                          "video":  "assets/videos/comparisons/slippers_tray__joyai_video_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__joyai_video_edit.jpg"
+                      },
+                      {
+                          "label":  "Kiwi-Edit",
+                          "role":  "model",
+                          "cf":  0.14,
+                          "video":  "assets/videos/comparisons/slippers_tray__kiwi_edit.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__kiwi_edit.jpg"
+                      },
+                      {
+                          "label":  "OmniWeaving",
+                          "role":  "model",
+                          "cf":  0.06,
+                          "video":  "assets/videos/comparisons/slippers_tray__omniweaving.mp4",
+                          "poster":  "assets/images/posters/comparisons/slippers_tray__omniweaving.jpg"
+                      }
+                  ]
+    }
+]

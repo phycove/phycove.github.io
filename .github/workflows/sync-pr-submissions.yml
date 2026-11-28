@@ -1,0 +1,50 @@
+name: Sync PR Leaderboard Submissions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "submissions/*.json"
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild assets/data/leaderboard.json from submissions
+        run: |
+          python3 scripts/leaderboard_tool.py sync-all \
+            --submissions-dir submissions \
+            --leaderboard assets/data/leaderboard.json
+
+      - name: Commit updated leaderboard if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/leaderboard.json
+          if git diff --cached --quiet; then
+            echo "leaderboard.json already up to date."
+            exit 0
+          fi
+          git commit -m "leaderboard: sync submissions into leaderboard.json"
+          git push origin main
+
+      - name: Trigger GitHub Pages rebuild
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            await github.rest.repos.requestPagesBuild({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });

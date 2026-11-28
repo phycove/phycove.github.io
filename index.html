@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PhyCoVE: Benchmarking Physical Counterfactual Video Editing across Diverse Material Dynamics. 533 counterfactual editing cases across rigid, elastic, and fluid dynamics.">
+  <meta name="theme-color" content="#FCFBF7">
+  <meta property="og:title" content="PhyCoVE: Benchmarking Physical Counterfactual Video Editing">
+  <meta property="og:description" content="533 counterfactual editing cases across 110 simulated and real-recorded source videos spanning rigid, elastic, and fluid dynamics.">
+  <meta property="og:type" content="website">
+  <title>PhyCoVE: Benchmarking Physical Counterfactual Video Editing</title>
+  <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+  <script>
+    // Large screens: scale the whole page (see "Large screens" in style.css) by how much
+    // bigger the window is than a ~1760x860 desktop, so it fills 2K/4K screens at any
+    // window size. Runs before first paint; the CSS media steps are the no-JS fallback.
+    (function () {
+      var root = document.documentElement;
+      function fit() {
+        var zoom = Math.min((root.clientWidth || innerWidth) / 1760, innerHeight / 860);
+        root.style.setProperty("--page-zoom", zoom < 1.15 ? "1" : Math.min(zoom, 2.6).toFixed(3));
+      }
+      fit();
+      addEventListener("resize", fit);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261128e">
+  <script src="assets/js/app.js?v=20261128c" type="module"></script>
+  <script data-goatcounter="https://phycove.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <!-- Shared Physics Glyphs matching Figure 1 (Rigid cube, Elastic wave, Fluid droplet) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ico-rigid" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 2.4 17 6.3v7.4L10 17.6 3 13.7V6.3L10 2.4z"/>
+        <path d="M10 10.2 17 6.3M10 10.2 3 6.3M10 10.2v7.4"/>
+      </symbol>
+      <symbol id="ico-elastic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 10h2.2l1.9-5.5 2.7 11 2.7-11 2.4 9 1.7-3.5H18"/>
+      </symbol>
+      <symbol id="ico-fluid" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 2.5C10 2.5 4.5 9 4.5 12.6a5.5 5.5 0 0 0 11 0C15.5 9 10 2.5 10 2.5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <a class="wordmark phycove-wordmark" href="#top" aria-label="PhyCoVE, back to top">
+      <span class="c-p">P</span><span class="c-h">h</span><span class="c-y">y</span><span class="c-c">C</span><span class="c-o">o</span><span class="c-v">V</span><span class="c-e">E</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      Menu <span aria-hidden="true">☰</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+      <a href="#showcase">Showcase</a>
+      <a href="#overview">Overview</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#metric">Metric</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#comparisons">Comparisons</a>
+      <a href="#citation">Citation</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero Cover -->
+    <section class="publication-header" id="top" aria-labelledby="paper-title">
+      <!-- Drifting material-colour aura (decorative; only shown when motion is allowed) -->
+      <div class="hero-aura" aria-hidden="true">
+        <span class="aura-blob aura-gold"></span>
+        <span class="aura-blob aura-cyan"></span>
+        <span class="aura-blob aura-pink"></span>
+        <span class="aura-blob aura-coral"></span>
+        <span class="aura-blob aura-blue"></span>
+      </div>
+      <div class="container">
+        <div class="cover-title-group">
+          <div class="material-triad" aria-label="Three coupled material domains">
+            <span class="triad-pill triad-rigid"><svg class="mat-ico" aria-hidden="true"><use href="#ico-rigid"/></svg>Rigid</span>
+            <span class="triad-sep" aria-hidden="true">×</span>
+            <span class="triad-pill triad-elastic"><svg class="mat-ico" aria-hidden="true"><use href="#ico-elastic"/></svg>Elastic</span>
+            <span class="triad-sep" aria-hidden="true">×</span>
+            <span class="triad-pill triad-fluid"><svg class="mat-ico" aria-hidden="true"><use href="#ico-fluid"/></svg>Fluid</span>
+          </div>
+          <h1 id="paper-title">
+            <span class="title-brand phycove-wordmark" aria-label="PhyCoVE">
+              <span class="c-p">P</span><span class="c-h">h</span><span class="c-y">y</span><span class="c-c">C</span><span class="c-o">o</span><span class="c-v">V</span><span class="c-e">E</span>
+            </span>
+            <span class="title-description">
+              Benchmarking Physical Counterfactual Video Editing<br class="desktop-break">
+              across <span class="title-phrase">Diverse Material Dynamics</span>
+            </span>
+          </h1>
+        </div>
+
+        <div class="cover-identity-group">
+          <div class="publication-authors">
+            <span><a href="mailto:chyue25@m.fudan.edu.cn" title="Email Conghan Yue">Conghan Yue</a><sup>*</sup></span>
+            <span>Yuanjie Chen<sup>*</sup></span>
+            <span>Yunyan Xiao</span>
+            <span>Zeyu Peng</span>
+            <span>Xingsong Ye</span>
+            <span>Ya Gao</span>
+          </div>
+          <div class="publication-authors publication-authors-row2">
+            <span>Yanglin Huang</span>
+            <span>WeiYao Zhang</span>
+            <span>Yue Han</span>
+            <span>Zhineng Chen<sup>†</sup></span>
+            <span>Yu-Gang Jiang<sup>†</sup></span>
+          </div>
+          <div class="publication-affiliations">
+            Institute of Trustworthy Embodied AI, Fudan University &nbsp;·&nbsp;
+            <span><sup>*</sup> Equal contribution</span> &nbsp;·&nbsp;
+            <span><sup>†</sup> Corresponding authors</span>
+          </div>
+          <div class="institution-logos" aria-label="Affiliated institutions">
+            <span class="fudan-mark"><img src="assets/images/identity/fudan-emblem.png" alt="Fudan University emblem" width="2267" height="1661"></span>
+            <span class="teai-mark"><img src="assets/images/identity/teai-blue.svg" alt="Institute of Trustworthy Embodied AI, Fudan University" width="368" height="48"></span>
+          </div>
+        </div>
+
+        <div class="publication-links" aria-label="Project resources">
+          <a class="resource-link link-paper" href="https://arxiv.org/pdf/2611.29184" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h6"/></svg>
+            Paper
+          </a>
+          <a class="resource-link link-arxiv" href="https://arxiv.org/abs/2611.29184" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            arXiv
+          </a>
+          <a class="resource-link link-dataset" href="https://huggingface.co/datasets/ccmoony/PhyCoVE" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></svg>
+            Dataset
+          </a>
+          <a class="resource-link link-code" href="https://github.com/Hammour-steak/PhyCoVE" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+            Code
+          </a>
+          <a class="resource-link link-leaderboard" href="#leaderboard">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            Leaderboard
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Benchmark Showcase -->
+    <section class="section showcase-section" id="showcase" aria-labelledby="showcase-title">
+      <div class="container wide-container">
+        <p class="section-eyebrow">Interactive Explorer</p>
+        <h2 class="section-title" id="showcase-title">Source vs. Counterfactual Target</h2>
+        <p class="section-intro">
+          Filter by interaction pattern (real-recorded scenes are marked <strong>Real</strong>).<br class="desktop-break">
+          Both videos play in sync at 24 fps to show the physical consequence of each edit.
+        </p>
+
+        <div class="showcase-shell" id="showcase-shell" data-cat="elastic-fluid">
+          <div class="filter-bar" id="showcase-filters" role="tablist" aria-label="Interaction pattern filter">
+            <button class="filter-pill pill-highlights is-active" type="button" role="tab" aria-selected="true" data-filter="highlights">Highlights</button>
+            <button class="filter-pill pill-rigid-rigid" type="button" role="tab" aria-selected="false" data-filter="rigid-rigid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-rigid"/></svg></span>
+              Rigid–Rigid <span class="pill-count">249</span>
+            </button>
+            <button class="filter-pill pill-rigid-elastic" type="button" role="tab" aria-selected="false" data-filter="rigid-elastic">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-elastic"/></svg></span>
+              Rigid–Elastic <span class="pill-count">164</span>
+            </button>
+            <button class="filter-pill pill-rigid-fluid" type="button" role="tab" aria-selected="false" data-filter="rigid-fluid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-fluid"/></svg></span>
+              Rigid–Fluid <span class="pill-count">85</span>
+            </button>
+            <button class="filter-pill pill-elastic-fluid" type="button" role="tab" aria-selected="false" data-filter="elastic-fluid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-elastic"/></svg><svg class="mat-ico"><use href="#ico-fluid"/></svg></span>
+              Elastic–Fluid <span class="pill-count">21</span>
+            </button>
+            <button class="filter-pill pill-elastic-elastic" type="button" role="tab" aria-selected="false" data-filter="elastic-elastic">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-elastic"/></svg><svg class="mat-ico"><use href="#ico-elastic"/></svg></span>
+              Elastic–Elastic <span class="pill-count">14</span>
+            </button>
+          </div>
+
+          <div class="case-strip" id="showcase-cases" role="group" aria-label="Select benchmark case"></div>
+
+          <div class="instruction-banner" id="showcase-banner">
+            <div class="instruction-meta">
+              <span class="badge badge-type" id="showcase-edit-type">Remove</span>
+              <span class="badge badge-cat" id="showcase-cat">Elastic–Fluid</span>
+              <span class="badge badge-frame" id="showcase-frame" hidden></span>
+              <button class="lang-toggle" id="showcase-lang-toggle" type="button" title="Toggle English / Chinese instruction">EN / 中文</button>
+            </div>
+            <p class="instruction-text" id="showcase-instruction" aria-live="polite">Loading showcase…</p>
+          </div>
+
+          <div class="dual-stage">
+            <figure class="media-column is-source">
+              <figcaption>Source Video</figcaption>
+              <div class="media-slot">
+                <video id="showcase-src-video" muted playsinline loop preload="metadata"></video>
+              </div>
+            </figure>
+            <figure class="media-column is-target">
+              <figcaption>Counterfactual Target (Ground Truth)</figcaption>
+              <div class="media-slot">
+                <video id="showcase-tgt-video" muted playsinline loop preload="metadata"></video>
+              </div>
+            </figure>
+          </div>
+
+          <div class="sync-controls">
+            <button class="play-btn" id="showcase-play" type="button">Pause</button>
+            <div class="seek-wrap">
+              <input class="seek-bar" id="showcase-seek" type="range" min="0" max="1" step="0.005" value="0" aria-label="Showcase playback position">
+              <div class="onset-marker" id="showcase-onset-marker" hidden title="Edit execution frame">
+                <span class="onset-tag" id="showcase-onset-tag"></span>
+              </div>
+            </div>
+            <output class="time-readout" id="showcase-time">Frame 1 / 96 · 0.00 s</output>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Abstract -->
+    <section class="section section-tinted" id="abstract" aria-labelledby="abstract-title">
+      <div class="container text-container">
+        <h2 class="section-title" id="abstract-title">Abstract</h2>
+        <div class="abstract-copy">
+          <p>
+            Physical counterfactual video editing turns a source video and a language-specified physical edit at a given execution frame into a counterfactual video that shows how the scene would evolve after the edit. Existing evaluations with counterfactual target videos mainly cover object removal or specific rigid-body motions, although real scenes also involve elastic deformation, fluid flow, and interactions among rigid bodies, elastic solids, and fluids. We introduce <strong>PhyCoVE</strong>, a benchmark of <strong>533 cases on 110 source videos</strong> that covers rigid, elastic, and fluid dynamics in five interaction patterns, with edits that remove an object, change a physical quantity, or insert a new object. For the simulated cases, a language model proposes scene designs, coding agents build them with solvers suited to each material and physically based rendering and then simulate each edit from the source scene state, and humans check every stage. For the real cases, we record continuously from one camera position before and after each edit. We also propose <strong>Counterfactual Fidelity (CF)</strong>, a metric that applies across materials and their interactions and measures how much of the physical change from the source video to the target video a generated video reproduces. Evaluating seven open-source and commercial video editing models shows that CF ranks them nearly as human preference does, yet even the best model reproduces only about one seventh of the physical change.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benchmark Overview & Related Benchmark Table -->
+    <section class="section" id="overview" aria-labelledby="overview-title">
+      <div class="container">
+        <p class="section-eyebrow section-eyebrow-benchmark">Benchmark Scope</p>
+        <h2 class="section-title" id="overview-title">Diverse Materials, Coupled Interactions &amp; Physical Edits</h2>
+        <p class="section-intro">
+          Every released video is standardized to 1280×720, H.264, 24 fps, and 96 frames (4 s),<br class="desktop-break">
+          paired with vague and quantitative instructions in both English and Chinese.
+        </p>
+
+        <figure class="paper-figure">
+          <a class="paper-figure-link" href="assets/images/figures/overview.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open original Figure 1 PDF">
+            <img src="assets/images/figures/overview.png" alt="Overview of PhyCoVE across five material interaction patterns and four edit axes" width="2740" height="965" decoding="async">
+          </a>
+          <figcaption>
+            <strong>Figure 1: Overview of PhyCoVE.</strong> Five material-interaction patterns spanning rigid, elastic, and fluid dynamics, with object removal (178), physical parameter changes (334), object insertion (21), and 63 later-frame edits.
+            <a class="figure-expand" href="assets/images/figures/overview.pdf" target="_blank" rel="noopener noreferrer">Open vector PDF <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+
+        <div class="table-card benchmark-cmp-wrap">
+          <div class="table-scroll" role="region" aria-label="Comparison with related benchmarks" tabindex="0">
+            <table class="results-table cmp-table">
+              <thead>
+              <tr>
+                <th scope="col" rowspan="2">Benchmark</th>
+                <th scope="col" rowspan="2" class="col-center">Task</th>
+                <th scope="colgroup" colspan="2">Reference</th>
+                <th scope="colgroup" colspan="3">Dynamics</th>
+                <th scope="col" rowspan="2" class="col-center">Real</th>
+              </tr>
+              <tr>
+                <th scope="col" class="col-center">Target</th>
+                <th scope="col" class="col-center">States</th>
+                <th scope="col" class="col-center">R</th>
+                <th scope="col" class="col-center">E</th>
+                <th scope="col" class="col-center">F</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">NRVBench</th><td class="col-center">Edit</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td></tr>
+              <tr><th scope="row">VOID</th><td class="col-center">Edit</td><td class="col-center mark-yes">✓<sup>†</sup></td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td></tr>
+              <tr><th scope="row">PCVE-RigidBench</th><td class="col-center">Edit</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td></tr>
+              <tr class="row-group-sep"><th scope="row">VideoPhy</th><td class="col-center">Gen.</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td></tr>
+              <tr><th scope="row">Physics-IQ</th><td class="col-center">Gen.</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td></tr>
+              <tr><th scope="row">CRONOS</th><td class="col-center">Gen.</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td></tr>
+              <tr class="row-group-sep"><th scope="row">Physion++</th><td class="col-center">QA</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td></tr>
+              <tr><th scope="row">ContPhy</th><td class="col-center">QA</td><td class="col-center mark-no">×</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td></tr>
+              <tr><th scope="row">CoPhy</th><td class="col-center">Pred.</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-yes">✓</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td><td class="col-center mark-no">×</td></tr>
+              <tr class="ours"><th scope="row">PhyCoVE</th><td class="col-center"><strong>Edit</strong></td><td class="col-center mark-yes"><strong>✓</strong></td><td class="col-center mark-yes"><strong>✓</strong></td><td class="col-center mark-yes"><strong>✓</strong></td><td class="col-center mark-yes"><strong>✓</strong></td><td class="col-center mark-yes"><strong>✓</strong></td><td class="col-center mark-yes"><strong>✓</strong></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <p class="table-note"><strong>Comparison with related benchmarks.</strong> Task is video editing (Edit), generation (Gen.), question answering (QA), or state prediction (Pred.). R, E, and F stand for rigid, elastic/deformable, and fluid dynamics. <sup>†</sup>Only for synthetic test videos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Construction Pipeline -->
+    <section class="section section-tinted" id="pipeline" aria-labelledby="pipeline-title">
+      <div class="container wide-container">
+        <p class="section-eyebrow section-eyebrow-method">Dataset Construction</p>
+        <h2 class="section-title" id="pipeline-title">Human-Verified Counterfactual Simulation Pipeline</h2>
+        <p class="section-intro">
+          Material-suited solvers (PyBullet/MuJoCo, IPC/MPM, SPH/FLIP) simulate each edit,<br class="desktop-break">
+          paired with Blender physically based rendering and human checks at every stage.
+        </p>
+
+        <figure class="paper-figure paper-figure-wide">
+          <a class="paper-figure-link" href="assets/images/figures/pipeline.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open original pipeline PDF">
+            <img src="assets/images/figures/pipeline.png" alt="Three-stage construction pipeline of the PhyCoVE simulated set" width="2743" height="1018" decoding="async">
+          </a>
+          <figcaption>
+            <strong>Figure 3: Construction of the simulated set.</strong> An LLM proposes scene designs, coding agents build scenes and coupled solvers, counterfactual edits branch from the source state at execution frame <em>t</em>, and humans inspect every stage.
+            <a class="figure-expand" href="assets/images/figures/pipeline.pdf" target="_blank" rel="noopener noreferrer">Open vector PDF <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Evaluation Metric (CF) -->
+    <section class="section" id="metric" aria-labelledby="metric-title">
+      <div class="container">
+        <p class="section-eyebrow">Evaluation Metric</p>
+        <h2 class="section-title" id="metric-title">Counterfactual Fidelity (CF)</h2>
+        <p class="task-intro">
+          Standard visual metrics (PSNR, SSIM, LPIPS, Mask IoU) reward leaving the source unchanged, since unaffected regions already match the target.
+        </p>
+        <p class="task-intro task-intro-sub">
+          <strong>Counterfactual Fidelity (CF)</strong> measures how much of the source-to-target physical change a generated video reproduces across rigid motion, elastic deformation, fluid flow, and object presence.
+        </p>
+
+        <div class="task-equation" aria-label="Counterfactual Fidelity formula">
+          <math display="block" aria-label="CF of q equals inner product of q gen minus q src and q tgt minus q src divided by squared norm of q tgt minus q src">
+            <mrow>
+              <mi>CF</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo>
+              <mo>=</mo>
+              <mfrac>
+                <mrow>
+                  <mo>&#x27E8;</mo>
+                  <msup><mi>q</mi><mtext>gen</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup>
+                  <mo>,</mo><mspace width="0.25em"/>
+                  <msup><mi>q</mi><mtext>tgt</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup>
+                  <mo>&#x27E9;</mo>
+                </mrow>
+                <msup>
+                  <mrow><mo>&#x2016;</mo><msup><mi>q</mi><mtext>tgt</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup><mo>&#x2016;</mo></mrow>
+                  <mn>2</mn>
+                </msup>
+              </mfrac>
+            </mrow>
+          </math>
+          <dl class="task-symbols">
+            <div><dt>CF = 1</dt><dd>Reproduces the full target physical change</dd></div>
+            <div><dt>CF = 0</dt><dd>Retains the unedited source dynamics</dd></div>
+            <div><dt>CF &lt; 0</dt><dd>Changes away from target or loses object</dd></div>
+          </dl>
+        </div>
+
+        <figure class="paper-figure paper-figure-compact">
+          <a class="paper-figure-link" href="assets/images/figures/agreement.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open original agreement figure PDF">
+            <img src="assets/images/figures/agreement.png" alt="Agreement of automatic metrics with human preference win rate" width="1949" height="555" decoding="async">
+          </a>
+          <figcaption>
+            <strong>Agreement with human preference.</strong> Across the seven evaluated models, CF and MLLM Edit Adherence (EA) closely match human rankings (Kendall τ = 0.90, Spearman ρ = 0.96), whereas Mask IoU and pixel/perceptual metrics reach τ ≤ 0.43.
+            <a class="figure-expand" href="assets/images/figures/agreement.pdf" target="_blank" rel="noopener noreferrer">Open vector PDF <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Interactive Leaderboard -->
+    <section class="section section-tinted" id="leaderboard" aria-labelledby="leaderboard-title">
+      <div class="container">
+        <p class="section-eyebrow section-eyebrow-results">Benchmark Results</p>
+        <h2 class="section-title" id="leaderboard-title">Leaderboard</h2>
+        <p class="section-intro">
+          Open-source and commercial models evaluated on physical metrics, visual fidelity, and human preference.<br class="desktop-break">
+          <em>Click any Overall metric header to sort, or click Submit Results to add your model.</em>
+        </p>
+
+        <div class="lb-toolbar">
+          <div class="lb-tabs" role="tablist" aria-label="Leaderboard view">
+            <button class="filter-pill is-active" type="button" role="tab" aria-selected="true" data-lb-tab="overall">Overall</button>
+            <button class="filter-pill" type="button" role="tab" aria-selected="false" data-lb-tab="edit-type">By Edit Type</button>
+            <button class="filter-pill" type="button" role="tab" aria-selected="false" data-lb-tab="interaction">By Interaction Pattern</button>
+            <button class="filter-pill" type="button" role="tab" aria-selected="false" data-lb-tab="rigid">Classic Rigid-Body</button>
+          </div>
+          <button class="submit-trigger" id="open-submit-modal" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            Submit Results
+          </button>
+        </div>
+
+        <!-- Tab 1: Overall -->
+        <div class="lb-panel" id="lb-overall">
+          <div class="table-card">
+            <div class="table-scroll" role="region" aria-label="Overall benchmark leaderboard" tabindex="0">
+              <table class="results-table sortable-table" id="overall-table">
+                <thead>
+                  <tr>
+                    <th scope="col" rowspan="2">Model</th>
+                    <th scope="colgroup" colspan="1">Human</th>
+                    <th scope="colgroup" colspan="5">Physical Metrics</th>
+                    <th scope="colgroup" colspan="4">Visual Fidelity</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="is-sortable" data-key="hpwr" data-dir="desc">HPWR ↑</th>
+                    <th scope="col" class="is-sortable" data-key="cf" data-dir="desc">CF ↑</th>
+                    <th scope="col" class="is-sortable" data-key="ea" data-dir="desc">EA ↑</th>
+                    <th scope="col" class="is-sortable" data-key="pc" data-dir="desc">PC ↑</th>
+                    <th scope="col" class="is-sortable" data-key="joint" data-dir="desc">Joint ↑</th>
+                    <th scope="col" class="is-sortable" data-key="miou" data-dir="desc">Mask IoU ↑</th>
+                    <th scope="col" class="is-sortable" data-key="psnr" data-dir="desc">PSNR ↑</th>
+                    <th scope="col" class="is-sortable" data-key="ssim" data-dir="desc">SSIM ↑</th>
+                    <th scope="col" class="is-sortable" data-key="lpips" data-dir="asc">LPIPS ↓</th>
+                    <th scope="col" class="is-sortable" data-key="fvd" data-dir="asc">FVD ↓</th>
+                  </tr>
+                </thead>
+                <tbody id="overall-tbody"></tbody>
+                <tfoot>
+                  <tr class="no-edit">
+                    <th scope="row">No edit (source control)</th>
+                    <td>—</td><td>0.000</td><td>—</td><td>—</td><td>—</td><td>0.359</td><td>30.03</td><td>0.960</td><td>0.043</td><td>147</td>
+                  </tr>
+                  <tr class="corr-row">
+                    <th scope="row">Kendall τ with HPWR</th>
+                    <td>—</td><td><strong>0.90</strong></td><td><strong>0.90</strong></td><td>0.62</td><td><strong>1.00</strong></td><td>0.24</td><td>0.24</td><td>0.05</td><td>0.43</td><td>0.62</td>
+                  </tr>
+                  <tr class="corr-row">
+                    <th scope="row">Spearman ρ with HPWR</th>
+                    <td>—</td><td><strong>0.96</strong></td><td><strong>0.96</strong></td><td>0.82</td><td><strong>1.00</strong></td><td>0.29</td><td>0.39</td><td>0.07</td><td>0.54</td><td>0.75</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <p class="table-note"><strong>Main results on PhyCoVE.</strong> HPWR and Joint are percentages; EA and PC are 1–5 ratings. <strong>Bold</strong> and <u>underline</u> mark best and second best. Kendall τ / Spearman ρ are computed across the seven paper baselines with blinded human evaluation (10 annotators, 500 comparisons, 1,500 judgments). <span class="lb-updated" id="lb-updated"></span></p>
+          </div>
+        </div>
+
+        <!-- Tab 2: By Edit Type -->
+        <div class="lb-panel" id="lb-edit-type" hidden>
+          <div class="table-card">
+            <div class="table-scroll" role="region" aria-label="Results by edit type" tabindex="0">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th scope="col" rowspan="2">Model</th>
+                    <th scope="colgroup" colspan="3">Remove (178)</th>
+                    <th scope="colgroup" colspan="3">Change (334)</th>
+                    <th scope="colgroup" colspan="3">Insert (21)</th>
+                  </tr>
+                  <tr>
+                    <th scope="col">CF ↑</th><th scope="col">EA ↑</th><th scope="col">HPWR ↑</th>
+                    <th scope="col">CF ↑</th><th scope="col">EA ↑</th><th scope="col">HPWR ↑</th>
+                    <th scope="col">CF ↑</th><th scope="col">EA ↑</th><th scope="col">HPWR ↑</th>
+                  </tr>
+                </thead>
+                <tbody id="edittype-tbody"></tbody>
+              </table>
+            </div>
+            <p class="table-note"><strong>Results by edit type.</strong> VOID operates on removals only. Blue and terracotta tints indicate performance above or below source-like parity (0 for CF, 1 for EA, 50% for HPWR).</p>
+          </div>
+        </div>
+
+        <!-- Tab 3: By Interaction Pattern -->
+        <div class="lb-panel" id="lb-interaction" hidden>
+          <div class="table-card">
+            <div class="table-scroll" role="region" aria-label="CF by material interaction pattern" tabindex="0">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Model</th>
+                    <th scope="col">Rigid–Rigid (249)</th>
+                    <th scope="col">Rigid–Elastic (164)</th>
+                    <th scope="col">Rigid–Fluid (85)</th>
+                    <th scope="col">Elastic–Fluid (21)</th>
+                    <th scope="col">Elastic–Elastic (14)</th>
+                  </tr>
+                </thead>
+                <tbody id="interaction-tbody"></tbody>
+              </table>
+            </div>
+            <p class="table-note"><strong>Counterfactual Fidelity (CF) by interaction pattern.</strong> Model rankings shift across material regimes: Wan 3.0 leads on rigid–rigid scenes, while MiniMax H3 and Seedance 2.5 lead on elastic and fluid interactions.</p>
+          </div>
+        </div>
+
+        <!-- Tab 4: Classic Rigid-Body (VideoPhysEdit comparison) -->
+        <div class="lb-panel" id="lb-rigid" hidden>
+          <div class="table-card">
+            <div class="table-scroll" role="region" aria-label="Results on classic rigid-body motion" tabindex="0">
+              <table class="results-table sortable-table" id="rigid-table">
+                <thead>
+                  <tr>
+                    <th scope="col" rowspan="2">Model</th>
+                    <th scope="colgroup" colspan="2">Physical Metrics</th>
+                    <th scope="colgroup" colspan="3">Visual Fidelity</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="is-sortable" data-key="cf" data-dir="desc">CF ↑</th>
+                    <th scope="col" class="is-sortable" data-key="miou" data-dir="desc">Mask IoU ↑</th>
+                    <th scope="col" class="is-sortable" data-key="psnr" data-dir="desc">PSNR ↑</th>
+                    <th scope="col" class="is-sortable" data-key="ssim" data-dir="desc">SSIM ↑</th>
+                    <th scope="col" class="is-sortable" data-key="lpips" data-dir="asc">LPIPS ↓</th>
+                  </tr>
+                </thead>
+                <tbody id="rigid-tbody"></tbody>
+              </table>
+            </div>
+            <p class="table-note"><strong>Results on classic rigid-body motion.</strong> Evaluated on 10 simulated cases with classic rigid-body dynamics. VideoPhysEdit simulates edits in a reconstructed physical scene and reaches CF 0.481 (0.432 on the eight parameter changes, vs. ≤ 0.088 for all seven video editing models). <strong>Bold</strong> and <u>underline</u> mark best and second best.</p>
+          </div>
+        </div>
+
+        <figure class="paper-figure radar-figure">
+          <a class="paper-figure-link" href="assets/images/figures/radars.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open original radar figures PDF">
+            <img src="assets/images/figures/radars.png" alt="Two radar charts sharing one legend for the seven models: (a) HPWR, CF, EA, PC, Joint, Mask IoU, PSNR, SSIM, LPIPS and FVD; (b) Edit Adherence on changes of each physical quantity" width="2314" height="1172" loading="lazy" decoding="async">
+          </a>
+          <figcaption>
+            <strong>(a) Results of the seven models on the metrics of the main table.</strong> Each axis runs from the lowest value among the models on the inner ring to the highest on the outer ring, with LPIPS and FVD reversed, but the inner ring of the CF axis marks a CF of 0.
+            <strong>(b) EA of the seven models on changes of each physical quantity.</strong> All axes share one scale, from an EA of 1 at the center to 2.25 on the outer ring.
+            <a class="figure-expand" href="assets/images/figures/radars.pdf" target="_blank" rel="noopener noreferrer">Open vector PDF <span aria-hidden="true">↗</span></a>
+          </figcaption>
+        </figure>
+
+        <div class="findings-grid">
+          <div class="finding-card">
+            <h3>Plausible video, missed physics</h3>
+            <p>All seven models exceed 4.0 on Physical Commonsense (PC), yet max out at 2.20 on Edit Adherence (EA) and 0.134 on CF—preserving source dynamics instead of simulating the intervention.</p>
+          </div>
+          <div class="finding-card">
+            <h3>Parameter edits remain unsolved</h3>
+            <p>Changes of mass, stiffness, density, or flow rate yield a top CF of just 0.019; 79% of generated videos stay within [−0.25, 0.25], close to the unedited source.</p>
+          </div>
+          <div class="finding-card">
+            <h3>Premature execution timing</h3>
+            <p>Across the nine later-frame removal cases, 44 of 63 generated videos remove the object before the requested execution frame, failing to preserve the pre-edit history.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7-Model Qualitative Video Comparisons -->
+    <section class="section comparison-section" id="comparisons" aria-labelledby="comparisons-title">
+      <div class="container wide-container">
+        <p class="section-eyebrow section-eyebrow-method">Qualitative Analysis</p>
+        <h2 class="section-title" id="comparisons-title">Side-by-Side Model Comparisons</h2>
+        <p class="section-intro">
+          Compare Source, Counterfactual Target, and all seven evaluated models in sync.<br class="desktop-break">
+          Each model card displays its per-video Counterfactual Fidelity (CF) score.
+        </p>
+
+        <div class="comparison-shell" id="comparison-shell" data-cat="rigid-fluid">
+          <div class="filter-bar" id="comp-filters" role="tablist" aria-label="Filter model comparisons by interaction pattern">
+            <button class="filter-pill pill-highlights is-active" type="button" role="tab" aria-selected="true" data-comp-filter="highlights">Highlights <span class="pill-count">8</span></button>
+            <button class="filter-pill pill-rigid-rigid" type="button" role="tab" aria-selected="false" data-comp-filter="rigid-rigid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-rigid"/></svg></span>
+              Rigid–Rigid <span class="pill-count">3</span>
+            </button>
+            <button class="filter-pill pill-rigid-elastic" type="button" role="tab" aria-selected="false" data-comp-filter="rigid-elastic">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-elastic"/></svg></span>
+              Rigid–Elastic <span class="pill-count">3</span>
+            </button>
+            <button class="filter-pill pill-rigid-fluid" type="button" role="tab" aria-selected="false" data-comp-filter="rigid-fluid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-rigid"/></svg><svg class="mat-ico"><use href="#ico-fluid"/></svg></span>
+              Rigid–Fluid <span class="pill-count">4</span>
+            </button>
+            <button class="filter-pill pill-elastic-fluid" type="button" role="tab" aria-selected="false" data-comp-filter="elastic-fluid">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-elastic"/></svg><svg class="mat-ico"><use href="#ico-fluid"/></svg></span>
+              Elastic–Fluid <span class="pill-count">3</span>
+            </button>
+            <button class="filter-pill pill-elastic-elastic" type="button" role="tab" aria-selected="false" data-comp-filter="elastic-elastic">
+              <span class="pill-icons" aria-hidden="true"><svg class="mat-ico"><use href="#ico-elastic"/></svg><svg class="mat-ico"><use href="#ico-elastic"/></svg></span>
+              Elastic–Elastic <span class="pill-count">3</span>
+            </button>
+          </div>
+
+          <div class="case-strip comparison-tabs" id="comparison-tabs" role="group" aria-label="Select qualitative comparison case"></div>
+
+          <div class="comparison-header-card">
+            <div class="instruction-meta">
+              <span class="badge badge-type" id="comp-edit-type">Remove</span>
+              <span class="badge badge-cat" id="comp-cat">Rigid–Fluid</span>
+              <span class="badge badge-frame" id="comp-frame" hidden></span>
+            </div>
+            <p class="instruction-text" id="comp-instruction" aria-live="polite">Loading comparison…</p>
+            <p class="comparison-takeaway" id="comp-takeaway"></p>
+          </div>
+
+          <div class="comp-ref-grid" id="comp-ref-grid"></div>
+          <div class="comp-model-grid" id="comp-model-grid"></div>
+
+          <div class="sync-controls">
+            <button class="play-btn" id="comp-play" type="button">Play all</button>
+            <div class="seek-wrap">
+              <input class="seek-bar" id="comp-seek" type="range" min="0" max="1" step="0.005" value="0" aria-label="Model comparison playback position">
+              <div class="onset-marker" id="comp-onset-marker" hidden title="Edit execution frame">
+                <span class="onset-tag" id="comp-onset-tag"></span>
+              </div>
+            </div>
+            <output class="time-readout" id="comp-time">Frame 1 / 96 · 0.00 s</output>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="section section-tinted citation-section" id="citation" aria-labelledby="citation-title">
+      <div class="container text-container">
+        <div class="citation-heading">
+          <h2 class="section-title" id="citation-title">BibTeX</h2>
+          <button class="copy-button" id="copy-citation" type="button">Copy</button>
+        </div>
+        <pre id="citation-code"><code>@article{yue2026phycove,
+  title   = {PhyCoVE: Benchmarking Physical Counterfactual Video Editing across Diverse Material Dynamics},
+  author  = {Yue, Conghan and Chen, Yuanjie and Xiao, Yunyan and Peng, Zeyu and Ye, Xingsong and
+             Gao, Ya and Huang, Yanglin and Zhang, WeiYao and Han, Yue and Chen, Zhineng and Jiang, Yu-Gang},
+  journal = {arXiv preprint arXiv:2611.29184},
+  year    = {2026}
+}</code></pre>
+        <p class="sr-only" id="copy-status" role="status"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a class="wordmark phycove-wordmark" href="#top" aria-label="PhyCoVE"><span class="c-p">P</span><span class="c-h">h</span><span class="c-y">y</span><span class="c-c">C</span><span class="c-o">o</span><span class="c-v">V</span><span class="c-e">E</span></a></p>
+    <p>
+      Institute of Trustworthy Embodied AI, Fudan University &nbsp;·&nbsp;
+      <a href="https://arxiv.org/pdf/2611.29184" target="_blank" rel="noopener noreferrer">Paper</a> &nbsp;·&nbsp;
+      <a href="https://arxiv.org/abs/2611.29184" target="_blank" rel="noopener noreferrer">arXiv</a> &nbsp;·&nbsp;
+      <a href="https://huggingface.co/datasets/ccmoony/PhyCoVE" target="_blank" rel="noopener noreferrer">Dataset</a> &nbsp;·&nbsp;
+      <a href="https://github.com/Hammour-steak/PhyCoVE" target="_blank" rel="noopener noreferrer">Code</a>
+    </p>
+  </footer>
+
+  <!-- Leaderboard Submission Modal -->
+  <dialog class="submit-modal" id="submit-modal" aria-labelledby="submit-modal-title">
+    <div class="submit-modal-head">
+      <div>
+        <p class="submit-eyebrow">Community Leaderboard</p>
+        <h3 id="submit-modal-title">Submit Model Results to PhyCoVE</h3>
+      </div>
+      <button class="modal-close" id="close-submit-modal" type="button" aria-label="Close submission dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <form class="submit-form" id="submit-form" novalidate>
+      <p class="submit-guide">
+        Evaluate your model with the <a href="https://github.com/Hammour-steak/PhyCoVE" target="_blank" rel="noopener noreferrer">official PhyCoVE evaluation toolkit</a>.
+        Submissions open a pre-filled GitHub Issue (or copyable JSON for a Pull Request) and go live automatically once approved by a maintainer.
+      </p>
+
+      <fieldset class="form-section">
+        <legend>Model Information</legend>
+        <div class="form-grid form-grid-2">
+          <label class="form-field">
+            <span>Model Name <em>*</em></span>
+            <input type="text" name="name" required maxlength="60" placeholder="e.g., MyPhysEdit-7B">
+          </label>
+          <label class="form-field">
+            <span>Model Type <em>*</em></span>
+            <select name="group" required>
+              <option value="open">Open-source (Open)</option>
+              <option value="comm">Commercial API (API)</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Organization / Lab</span>
+            <input type="text" name="org" maxlength="80" placeholder="e.g., Fudan University">
+          </label>
+          <label class="form-field">
+            <span>Paper / Project / Code URL</span>
+            <input type="url" name="url" placeholder="https://arxiv.org/abs/...">
+          </label>
+          <label class="form-field form-field-full">
+            <span>Verification Link (Predictions / Eval Logs) <em>*</em></span>
+            <input type="url" name="evidence_url" required placeholder="https://huggingface.co/... or Google Drive / GitHub release link">
+          </label>
+          <label class="form-field form-field-full">
+            <span>Evaluation Notes (optional)</span>
+            <input type="text" name="notes" maxlength="300" placeholder="e.g., All 533 cases, quantitative EN prompts, default inference settings">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-section">
+        <legend>Overall Metrics (All 533 Cases)</legend>
+        <div class="form-grid form-grid-5">
+          <label class="form-field">
+            <span>CF ↑ <em>*</em></span>
+            <input type="number" name="cf" step="0.001" min="-1" max="1" required placeholder="0.150">
+          </label>
+          <label class="form-field">
+            <span>EA ↑</span>
+            <input type="number" name="ea" step="0.01" min="1" max="5" placeholder="2.30">
+          </label>
+          <label class="form-field">
+            <span>PC ↑</span>
+            <input type="number" name="pc" step="0.01" min="1" max="5" placeholder="4.40">
+          </label>
+          <label class="form-field">
+            <span>Joint (%) ↑</span>
+            <input type="number" name="joint" step="0.1" min="0" max="100" placeholder="13.5">
+          </label>
+          <label class="form-field">
+            <span>Mask IoU ↑</span>
+            <input type="number" name="miou" step="0.001" min="0" max="1" placeholder="0.340">
+          </label>
+          <label class="form-field">
+            <span>PSNR ↑</span>
+            <input type="number" name="psnr" step="0.01" min="0" max="100" placeholder="27.50">
+          </label>
+          <label class="form-field">
+            <span>SSIM ↑</span>
+            <input type="number" name="ssim" step="0.001" min="0" max="1" placeholder="0.880">
+          </label>
+          <label class="form-field">
+            <span>LPIPS ↓</span>
+            <input type="number" name="lpips" step="0.001" min="0" max="2" placeholder="0.095">
+          </label>
+          <label class="form-field">
+            <span>FVD ↓</span>
+            <input type="number" name="fvd" step="1" min="0" max="100000" placeholder="95">
+          </label>
+          <label class="form-field">
+            <span>HPWR (%)</span>
+            <input type="number" name="hpwr" step="0.1" min="0" max="100" placeholder="Optional">
+          </label>
+        </div>
+      </fieldset>
+
+      <details class="form-collapsible">
+        <summary>Optional: Breakdown by Edit Type &amp; Interaction Pattern</summary>
+        <div class="form-subgrid">
+          <p class="form-subhead">By Edit Type (CF / EA)</p>
+          <div class="form-grid form-grid-6">
+            <label class="form-field"><span>Remove CF</span><input type="number" name="rem_cf" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Remove EA</span><input type="number" name="rem_ea" step="0.01" min="1" max="5"></label>
+            <label class="form-field"><span>Change CF</span><input type="number" name="chg_cf" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Change EA</span><input type="number" name="chg_ea" step="0.01" min="1" max="5"></label>
+            <label class="form-field"><span>Insert CF</span><input type="number" name="ins_cf" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Insert EA</span><input type="number" name="ins_ea" step="0.01" min="1" max="5"></label>
+          </div>
+          <p class="form-subhead">CF by Material Interaction Pattern</p>
+          <div class="form-grid form-grid-5">
+            <label class="form-field"><span>Rigid–Rigid</span><input type="number" name="pat_rr" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Rigid–Elastic</span><input type="number" name="pat_re" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Rigid–Fluid</span><input type="number" name="pat_rf" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Elastic–Fluid</span><input type="number" name="pat_ef" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Elastic–Elastic</span><input type="number" name="pat_ee" step="0.001" min="-1" max="1"></label>
+          </div>
+          <p class="form-subhead">Classic Rigid-Body Subset (10 Cases)</p>
+          <div class="form-grid form-grid-5">
+            <label class="form-field"><span>CF ↑</span><input type="number" name="rigid_cf" step="0.001" min="-1" max="1"></label>
+            <label class="form-field"><span>Mask IoU ↑</span><input type="number" name="rigid_miou" step="0.001" min="0" max="1"></label>
+            <label class="form-field"><span>PSNR ↑</span><input type="number" name="rigid_psnr" step="0.01" min="0" max="100"></label>
+            <label class="form-field"><span>SSIM ↑</span><input type="number" name="rigid_ssim" step="0.001" min="0" max="1"></label>
+            <label class="form-field"><span>LPIPS ↓</span><input type="number" name="rigid_lpips" step="0.001" min="0" max="2"></label>
+          </div>
+        </div>
+      </details>
+
+      <details class="form-collapsible">
+        <summary>Preview Generated Submission JSON</summary>
+        <pre class="json-preview" id="submit-json-preview"><code>{}</code></pre>
+      </details>
+
+      <p class="submit-error" id="submit-error" role="alert" hidden></p>
+
+      <div class="submit-actions">
+        <button class="submit-btn-secondary" id="copy-submission-json" type="button">Copy JSON for PR</button>
+        <button class="submit-btn-primary" type="submit">Submit via GitHub Issue</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
