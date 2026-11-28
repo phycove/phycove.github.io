@@ -659,7 +659,19 @@ img, video { max-width: 100%; }
   border-radius: 18px; text-align: center;
   box-shadow: 0 8px 24px rgba(122, 94, 15, .07);
 }
-.task-equation math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 21px; color: var(--ink); }
+/* The CF formula, set in HTML: italic serif variables, upright scripts, explicit spacing */
+.eq { font-family: Cambria, "STIX Two Text", "Times New Roman", serif; color: var(--ink); white-space: nowrap; }
+.task-equation > .eq { display: flex; align-items: center; justify-content: center; margin: 0; font-size: 22px; line-height: 1.45; }
+.eq-var { font-style: italic; }
+.eq-delim { font-family: "Cambria Math", "STIX Two Math", Cambria, serif; }
+.eq-op { margin: 0 .32em; }
+.eq-minus { margin: 0 .24em; }
+.eq-sep { margin-right: .24em; }
+.eq-sup { position: relative; top: -.6em; margin-left: .06em; font-size: .64em; line-height: 0; vertical-align: baseline; }
+.eq-pow { margin-left: .04em; }
+.eq-frac { display: inline-flex; flex-direction: column; align-items: center; margin: 0 .08em; }
+.eq-num { padding: 0 .18em .1em; border-bottom: 1.5px solid currentColor; }
+.eq-den { padding: .12em .18em 0; }
 .task-symbols {
   display: flex; justify-content: center; flex-wrap: wrap; gap: 22px; margin: 18px 0 0;
 }
@@ -964,7 +976,7 @@ img, video { max-width: 100%; }
 @media (max-width: 640px) {
   .title-phrase { white-space: normal; }
   .task-equation { padding: 18px 16px; }
-  .task-equation math { font-size: 18px; }
+  .task-equation > .eq { font-size: 17px; }
   .task-symbols {
     flex-direction: column; align-items: flex-start; gap: 10px;
     max-width: 310px; margin: 16px auto 0;

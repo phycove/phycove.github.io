@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261128f">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261128g">
   <script src="assets/js/app.js?v=20261128c" type="module"></script>
   <script data-goatcounter="https://phycove.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -334,25 +334,15 @@
         </p>
 
         <div class="task-equation" aria-label="Counterfactual Fidelity formula">
-          <math display="block" aria-label="CF of q equals inner product of q gen minus q src and q tgt minus q src divided by squared norm of q tgt minus q src">
-            <mrow>
-              <mi>CF</mi><mo stretchy="false">(</mo><mi>q</mi><mo stretchy="false">)</mo>
-              <mo>=</mo>
-              <mfrac>
-                <mrow>
-                  <mo>&#x27E8;</mo>
-                  <msup><mi>q</mi><mtext>gen</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup>
-                  <mo>,</mo><mspace width="0.25em"/>
-                  <msup><mi>q</mi><mtext>tgt</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup>
-                  <mo>&#x27E9;</mo>
-                </mrow>
-                <msup>
-                  <mrow><mo>&#x2016;</mo><msup><mi>q</mi><mtext>tgt</mtext></msup><mo>&#x2212;</mo><msup><mi>q</mi><mtext>src</mtext></msup><mo>&#x2016;</mo></mrow>
-                  <mn>2</mn>
-                </msup>
-              </mfrac>
-            </mrow>
-          </math>
+          <!-- Set in HTML rather than MathML so script spacing is identical in every browser and at every page zoom -->
+          <p class="eq" role="math" aria-label="CF of q equals inner product of q gen minus q src and q tgt minus q src divided by squared norm of q tgt minus q src">
+            <span class="eq-lhs">CF<span class="eq-paren">(</span><span class="eq-var">q</span><span class="eq-paren">)</span></span>
+            <span class="eq-op">=</span>
+            <span class="eq-frac">
+              <span class="eq-num"><span class="eq-delim">&#x27E8;</span><span class="eq-var">q</span><sup class="eq-sup">gen</sup><span class="eq-minus">&#x2212;</span><span class="eq-var">q</span><sup class="eq-sup">src</sup><span class="eq-sep">,</span><span class="eq-var">q</span><sup class="eq-sup">tgt</sup><span class="eq-minus">&#x2212;</span><span class="eq-var">q</span><sup class="eq-sup">src</sup><span class="eq-delim">&#x27E9;</span></span>
+              <span class="eq-den"><span class="eq-delim">&#x2016;</span><span class="eq-var">q</span><sup class="eq-sup">tgt</sup><span class="eq-minus">&#x2212;</span><span class="eq-var">q</span><sup class="eq-sup">src</sup><span class="eq-delim">&#x2016;</span><sup class="eq-sup eq-pow">2</sup></span>
+            </span>
+          </p>
           <dl class="task-symbols">
             <div><dt>CF = 1</dt><dd>Reproduces the full target physical change</dd></div>
             <div><dt>CF = 0</dt><dd>Retains the unedited source dynamics</dd></div>
