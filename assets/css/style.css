@@ -701,6 +701,8 @@ img, video { max-width: 100%; }
 .results-table thead th[scope="colgroup"]::after {
   content: ""; position: absolute; bottom: 0; left: 8px; right: 8px; height: 1px; background: var(--line-strong);
 }
+/* A group over a single column (Human) lines up with that column's right-aligned header and values */
+.results-table thead th[scope="colgroup"][colspan="1"] { text-align: right; }
 .results-table thead tr:first-child th:first-child,
 .results-table tbody th:first-child { text-align: left; }
 .results-table tbody tr { border-bottom: 1px solid #efeae0; }
